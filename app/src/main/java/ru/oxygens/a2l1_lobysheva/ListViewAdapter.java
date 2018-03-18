@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ListViewAdapter extends BaseAdapter {
 
-    private final int SAMPLES_COUNT = 3;
+    private final int SAMPLES_COUNT = 1;
     private final String SAMPLE_TITLE = "SAMPLE";
     private final String SAMPLE_TEXT = "Your text could be here :)";
 
