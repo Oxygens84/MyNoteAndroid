@@ -50,7 +50,7 @@ public class NoteActivity extends AppCompatActivity
         if (mode.equals(mode_view)){
             title.setEnabled(false);
             body.setEnabled(false);
-            save.setEnabled(false);
+            save.setVisibility(View.GONE);
         }
 
     }

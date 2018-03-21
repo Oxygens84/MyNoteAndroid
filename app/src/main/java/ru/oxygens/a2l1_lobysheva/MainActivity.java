@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by oxygens on 16/03/2018.
@@ -29,8 +32,11 @@ public class MainActivity extends AppCompatActivity
     public static final String KEY_POSITION = "POSITION";
     public static final String KEY_MODE = "MODE";
 
+    String bug_text = "oops. something went wrong";
+
     ListViewAdapter adapter;
     ListView listView;
+    View view;
 
     int code = 1;
     int selected_position = -1;
@@ -39,6 +45,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            getSupportActionBar().hide();
             mode.getMenuInflater().inflate(R.menu.context_menu, menu);
             return true;
         }
@@ -60,6 +67,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onDestroyActionMode(ActionMode mode) {
             mode.finish();
+            getSupportActionBar().show();
         }
     };
 
@@ -136,6 +144,13 @@ public class MainActivity extends AppCompatActivity
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(R.menu.context_menu, menu);
+        getSupportActionBar().hide();
+    }
+
+    @Override
+    public void onContextMenuClosed(Menu menu) {
+        super.onContextMenuClosed(menu);
+        getSupportActionBar().show();
     }
 
     @Override
@@ -215,23 +230,34 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_camera) {
-
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
+        if (id == R.id.nav_slideshow) {
+            showToast(bug_text);
         } else if (id == R.id.nav_manage) {
-
+            showToast(bug_text);
         } else if (id == R.id.nav_share) {
-
+            showToast(bug_text);
         } else if (id == R.id.nav_send) {
-
+            TextView email = (TextView) findViewById(R.id.dev_email);
+            Intent bugIntent = new Intent(Intent.ACTION_SEND);
+            bugIntent.setType("text/plain");
+            bugIntent.putExtra(Intent.EXTRA_SUBJECT, bug_text);
+            bugIntent.putExtra(Intent.EXTRA_EMAIL, email.getText().toString());
+            Intent optionsIntent = Intent.createChooser(bugIntent, getString(R.string.options_title));
+            startActivity(optionsIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    public void showToast(String text) {
+        Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
+
 
 }

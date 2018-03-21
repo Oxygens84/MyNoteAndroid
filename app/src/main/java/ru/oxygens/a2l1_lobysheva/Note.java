@@ -19,19 +19,19 @@ public class Note {
         setNoteBody(text);
     }
 
-    public String getNoteHeader(){
+    String getNoteHeader(){
         return noteTitle;
     }
 
-    public String getNoteBody(){
+    String getNoteBody(){
         return noteBody;
     }
 
-    public Integer getNoteId(){
+    Integer getNoteId(){
         return noteId;
     }
 
-    public void setNoteTitle(String title){
+    void setNoteTitle(String title){
         if (title == null || "".equals(title)){
             noteTitle = TITLE_DEFAULT;
         } else {
@@ -39,7 +39,7 @@ public class Note {
         }
     }
 
-    public void setNoteBody(String text){
+    void setNoteBody(String text){
         if (text == null){
             noteBody = TEXT_DEFAULT;
         } else {

@@ -6,6 +6,7 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_size">20dp</dimen>
+    <dimen name="image_size">20sp</dimen>
     <integer name="note_title_length">20</integer>
     <integer name="note_body_length">300</integer>
 
