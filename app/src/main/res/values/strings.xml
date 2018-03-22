@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Lesson2</string>
     <string name="form_name">Note</string>
-    <string name="studio_name">What\'s up, doc!</string>
+
+    <string name="about_us">About us</string>
     <string name="dev_email">feedback@gmail.ru</string>
+
+    <string name="user_slogan">What\'s up, doc!</string>
+    <string name="user_email">user@gmail.ru</string>
+
     <string name="options_title">Options</string>
 
     <string name="hint_title">Title</string>
@@ -14,7 +19,7 @@
     <string name="slideshow">Slideshow</string>
     <string name="communicate">Communicate</string>
     <string name="share">Share</string>
-    <string name="send_bug_report">Send bug report</string>
+    <string name="feedback">Contact us</string>
 
     <string name="action_settings">Settings</string>
 

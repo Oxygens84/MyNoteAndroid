@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.oxygens.a2l1_lobysheva">
+    package="ru.oxygens.a2_l2_lobysheva">
 
     <application
         android:allowBackup="true"

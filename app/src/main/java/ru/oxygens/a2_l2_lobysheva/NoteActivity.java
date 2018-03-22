@@ -1,4 +1,4 @@
-package ru.oxygens.a2l1_lobysheva;
+package ru.oxygens.a2_l2_lobysheva;
 
 import android.content.Intent;
 import android.os.Bundle;

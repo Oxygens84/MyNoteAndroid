@@ -1,4 +1,4 @@
-package ru.oxygens.a2l1_lobysheva;
+package ru.oxygens.a2_l2_lobysheva;
 
 import android.content.Context;
 import android.view.ContextMenu;
@@ -23,19 +23,15 @@ public class ListViewAdapter extends BaseAdapter {
 
     private List<Note> elements = new ArrayList<>();
     private LayoutInflater layoutInflater;
-    private Integer counter = 0;
-    private Context context;
 
     ListViewAdapter(Context context) {
-        this.context = context;
-        layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         addSamples(SAMPLES_COUNT);
     }
 
     private void addSamples(int num) {
         for (int i = 0; i < num; i++) {
-            counter++;
-            elements.add(new Note(counter, SAMPLE_TITLE + (i + 1), SAMPLE_TEXT));
+            elements.add(new Note(SAMPLE_TITLE + (i + 1), SAMPLE_TEXT));
         }
     }
 
@@ -59,8 +55,7 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     void addElement(String title, String text) {
-        counter++;
-        elements.add(new Note(counter, title, text));
+        elements.add(new Note(title, text));
         notifyDataSetChanged();
     }
 

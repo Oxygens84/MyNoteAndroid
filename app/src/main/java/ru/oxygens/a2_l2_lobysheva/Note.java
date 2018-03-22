@@ -1,20 +1,18 @@
-package ru.oxygens.a2l1_lobysheva;
+package ru.oxygens.a2_l2_lobysheva;
 
 /**
  * Created by oxygens on 16/03/2018.
  */
 
-public class Note {
+class Note {
 
-    private Integer noteId;
     private String noteTitle;
     private String noteBody;
 
     private final String TITLE_DEFAULT = "[no title]";
     private final String TEXT_DEFAULT = "";
 
-    Note(Integer id, String title, String text){
-        noteId = id;
+    Note(String title, String text){
         setNoteTitle(title);
         setNoteBody(text);
     }
@@ -25,10 +23,6 @@ public class Note {
 
     String getNoteBody(){
         return noteBody;
-    }
-
-    Integer getNoteId(){
-        return noteId;
     }
 
     void setNoteTitle(String title){

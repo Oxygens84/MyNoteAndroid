@@ -1,4 +1,4 @@
-package ru.oxygens.a2l1_lobysheva;
+package ru.oxygens.a2_l2_lobysheva;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -236,7 +236,13 @@ public class MainActivity extends AppCompatActivity
             showToast(bug_text);
         } else if (id == R.id.nav_share) {
             showToast(bug_text);
+        } else if (id == R.id.nav_contacts) {
+
+            Intent intent = new Intent(this, ContactActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_send) {
+
             TextView email = (TextView) findViewById(R.id.dev_email);
             Intent bugIntent = new Intent(Intent.ACTION_SEND);
             bugIntent.setType("text/plain");
@@ -244,6 +250,7 @@ public class MainActivity extends AppCompatActivity
             bugIntent.putExtra(Intent.EXTRA_EMAIL, email.getText().toString());
             Intent optionsIntent = Intent.createChooser(bugIntent, getString(R.string.options_title));
             startActivity(optionsIntent);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

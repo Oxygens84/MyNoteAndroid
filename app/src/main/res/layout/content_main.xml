@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="ru.oxygens.a2l1_lobysheva.MainActivity"
+        tools:context="ru.oxygens.a2_l2_lobysheva.MainActivity"
         tools:showIn="@layout/app_bar_main">
 
         <ListView
