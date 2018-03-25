@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">Lesson2</string>
-    <string name="form_name">Note</string>
+    <string name="app_name">NoteApp Lesson 3</string>
+    <string name="note_form_name">Note</string>
+
+    <string name="google_map_key">AIzaSyDulopmd_oeSQLVgkhR8ThhalVxuB4AG9c</string>
 
     <string name="about_us">About us</string>
+    <string name="studio_name">Hamsters and Rabbits, Ltd</string>
     <string name="dev_email">feedback@gmail.ru</string>
+    <string name="studio_address">Moscow, RUSSIA</string>
 
     <string name="user_slogan">What\'s up, doc!</string>
     <string name="user_email">user@gmail.ru</string>
@@ -32,5 +36,9 @@
 
     <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_ok">Back</string>
+    <string name="button_map">Go to map</string>
+
+    <string name="place_not_found">Place not found</string>
 
 </resources>

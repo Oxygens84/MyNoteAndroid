@@ -1,4 +1,4 @@
-package ru.oxygens.a2_l2_lobysheva;
+package ru.oxygens.a2_l3_lobysheva;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

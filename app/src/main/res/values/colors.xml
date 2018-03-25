@@ -5,4 +5,5 @@
     <color name="colorAccent">#ef3d7a</color>
     <color name="colorBackGround">#ffffff</color>
     <color name="colorSelectedNote">#d9caed</color>
+    <color name="colorWeatherBack">#e9e0f4</color>
 </resources>

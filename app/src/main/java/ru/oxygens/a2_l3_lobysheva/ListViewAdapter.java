@@ -1,4 +1,4 @@
-package ru.oxygens.a2_l2_lobysheva;
+package ru.oxygens.a2_l3_lobysheva;
 
 import android.content.Context;
 import android.view.ContextMenu;
@@ -45,9 +45,7 @@ public class ListViewAdapter extends BaseAdapter {
         return elements.get(position);
     }
 
-    public Note getItemInfo(int position) {
-        return elements.get(position);
-    }
+
 
     @Override
     public long getItemId(int position) {
@@ -59,6 +57,9 @@ public class ListViewAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    Note getItemInfo(int position) {
+        return elements.get(position);
+    }
 
     void updateElement(int position, String title, String text) {
         if (elements.size() > 0) {
@@ -115,7 +116,7 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     class ListViewHolder {
-        protected TextView textView;
+        TextView textView;
     }
 
 

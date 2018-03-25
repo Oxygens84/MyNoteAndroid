@@ -1,0 +1,43 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme">
+
+<LinearLayout
+    style="@style/LayoutVerticalStyle">
+
+    <TextView
+        style="@style/TextViewStyle"
+        android:id="@+id/studio_name"
+        android:text="@string/studio_name"/>
+
+    <TextView
+        style="@style/TextViewStyle"
+        android:id="@+id/studio_address"
+        android:text="@string/studio_address"/>
+
+    <TextView
+        style="@style/TextViewStyle"
+        android:id="@+id/dev_email"
+        android:text="@string/dev_email"/>
+
+    <LinearLayout
+        style="@style/LayoutHorizontStyle">
+
+        <Button
+            style="@style/ButtonStyle"
+            android:id="@+id/button_map"
+            android:text="@string/button_map"/>
+
+        <Button
+            style="@style/ButtonStyle"
+            android:id="@+id/button_ok"
+            android:text="@string/button_ok"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+</ScrollView>

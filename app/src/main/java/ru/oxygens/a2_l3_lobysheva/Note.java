@@ -1,4 +1,4 @@
-package ru.oxygens.a2_l2_lobysheva;
+package ru.oxygens.a2_l3_lobysheva;
 
 /**
  * Created by oxygens on 16/03/2018.

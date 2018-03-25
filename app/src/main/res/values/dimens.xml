@@ -6,8 +6,11 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_size">20dp</dimen>
-    <dimen name="image_size">20sp</dimen>
-    <integer name="note_title_length">20</integer>
-    <integer name="note_body_length">300</integer>
+    <dimen name="image_size">20dp</dimen>
+
+    <dimen name="updated_font_size">10dp</dimen>
+    <dimen name="weather_text_size">10dp</dimen>
+    <dimen name="icon_font_size">10dp</dimen>
+    <dimen name="weather_form_heigth">40dp</dimen>
 
 </resources>
