@@ -411,8 +411,8 @@ public class MainActivity extends AppCompatActivity
         } else {
             mLocManager.requestLocationUpdates(
                     LocationManager.NETWORK_PROVIDER, 3000L, 1.0F, mLocListener);
-            //mLocManager.requestLocationUpdates(
-            //        LocationManager.GPS_PROVIDER, 3000L, 1.0F, mLocListener);
+            mLocManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, 3000L, 1.0F, mLocListener);
         }
     }
 
