@@ -1,10 +1,12 @@
 package ru.oxygens.a2_l3_lobysheva;
 
+import java.io.Serializable;
+
 /**
  * Created by oxygens on 16/03/2018.
  */
 
-class Note {
+class Note implements Serializable {
 
     private String noteTitle;
     private String noteBody;
