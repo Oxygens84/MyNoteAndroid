@@ -8,6 +8,7 @@
     <string name="studio_name">Hamsters and Rabbits, Ltd</string>
     <string name="dev_email">feedback@gmail.ru</string>
     <string name="studio_address">Moscow, RUSSIA</string>
+    <string name="bug_text">"oops. something went wrong"</string>
 
     <string name="user_slogan">What\'s up, doc!</string>
     <string name="user_email">user@gmail.ru</string>
@@ -24,6 +25,7 @@
     <string name="communicate">Communicate</string>
     <string name="share">Share</string>
     <string name="feedback">Contact us</string>
+    <string name="feedback_header">"Feedback"</string>
 
     <string name="action_settings">Settings</string>
 

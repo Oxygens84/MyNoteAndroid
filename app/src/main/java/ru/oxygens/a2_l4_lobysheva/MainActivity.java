@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity
     public static final String KEY_POSITION = "POSITION";
     public static final String KEY_MODE = "MODE";
 
-    String bug_text = "oops. something went wrong";
-    String email_subject = "Feedback";
+    String bug_text = "";
+    String email_subject = "";
 
     ListViewAdapter adapter;
     ListView listView;
@@ -97,6 +97,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        bug_text = getString(R.string.bug_text);
+        email_subject = getString(R.string.feedback_header);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = initToolbar();
         initListView();
