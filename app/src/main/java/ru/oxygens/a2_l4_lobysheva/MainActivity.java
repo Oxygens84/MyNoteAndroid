@@ -129,6 +129,10 @@ public class MainActivity extends AppCompatActivity
         adapter = new ListViewAdapter(getApplicationContext());
         listView.setAdapter(adapter);
         listView.setOnCreateContextMenuListener(this);
+
+        if (adapter.getCount() == 0){
+            showToast(getString(R.string.no_result));
+        }
     }
 
     private void initNavigationView() {

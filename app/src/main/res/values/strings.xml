@@ -40,5 +40,6 @@
     <string name="button_map">Go to map</string>
 
     <string name="place_not_found">Place not found</string>
+    <string name="no_result">You dont\'t have notes yet</string>
 
 </resources>
