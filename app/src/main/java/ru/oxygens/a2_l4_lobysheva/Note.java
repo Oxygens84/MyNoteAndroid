@@ -1,4 +1,4 @@
-package ru.oxygens.a2_l3_lobysheva;
+package ru.oxygens.a2_l4_lobysheva;
 
 import java.io.Serializable;
 
