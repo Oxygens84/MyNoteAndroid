@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId 'ru.oxygens.a2_l4_lobysheva'
+        applicationId 'ru.oxygens.a2_l5_lobysheva'
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
