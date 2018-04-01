@@ -13,5 +13,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
+        <TextView
+            style="@style/TextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/no_result"
+            android:gravity="center"
+            android:textColor="@color/colorSelectedNote"
+            android:text="@string/no_result"
+            />
+
 </android.support.constraint.ConstraintLayout>
 

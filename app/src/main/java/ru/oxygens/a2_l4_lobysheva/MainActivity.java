@@ -133,10 +133,7 @@ public class MainActivity extends AppCompatActivity
         adapter = new ListViewAdapter(getApplicationContext());
         listView.setAdapter(adapter);
         listView.setOnCreateContextMenuListener(this);
-
-        if (adapter.getCount() == 0){
-            showToast(getString(R.string.no_result));
-        }
+        updateEmptyListMessage();
     }
 
     private void initNavigationView() {
@@ -197,33 +194,35 @@ public class MainActivity extends AppCompatActivity
         switch (i) {
             case R.id.action_create: {
                 openCreateForm();
-                return true;
+                break;
             }
             case R.id.action_update: {
                 openForm(NoteActivity.mode_update);
-                return true;
+                break;
             }
             case R.id.action_view: {
                 openForm(NoteActivity.mode_view);
-                return true;
+                break;
             }
             case R.id.action_delete: {
                 adapter.deleteElement(selected_position);
-                return true;
+                break;
             }
             case R.id.action_delete_last: {
                 adapter.deleteLastElement();
                 selected_position = -1;
-                return true;
+                break;
             }
             case R.id.action_delete_all: {
                 adapter.deleteAll();
-                return true;
+                break;
             }
             default: {
                 return false;
             }
         }
+        updateEmptyListMessage();
+        return true;
     }
 
     private void openCreateForm() {
@@ -259,6 +258,7 @@ public class MainActivity extends AppCompatActivity
                 adapter.addElement(savedTitle, savedBody);
             }
         }
+        updateEmptyListMessage();
     }
 
 
@@ -446,4 +446,11 @@ public class MainActivity extends AppCompatActivity
         public void onProviderDisabled(String provider) {  }
     }
 
+    private void updateEmptyListMessage(){
+        if (adapter.getCount() == 0){
+            findViewById(R.id.no_result).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.no_result).setVisibility(View.GONE);
+        }
+    }
 }

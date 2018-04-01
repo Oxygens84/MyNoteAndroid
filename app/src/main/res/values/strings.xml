@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NoteApp Lesson 3</string>
+    <string name="app_name">NoteApp Lesson 5</string>
     <string name="note_form_name">Note</string>
 
     <string name="google_map_key">AIzaSyDulopmd_oeSQLVgkhR8ThhalVxuB4AG9c</string>
@@ -42,6 +42,6 @@
     <string name="button_map">Go to map</string>
 
     <string name="place_not_found">Place not found</string>
-    <string name="no_result">You dont\'t have notes yet</string>
+    <string name="no_result">You don\'t have notes</string>
 
 </resources>
