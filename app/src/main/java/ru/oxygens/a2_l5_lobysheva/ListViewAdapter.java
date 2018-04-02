@@ -1,6 +1,7 @@
 package ru.oxygens.a2_l5_lobysheva;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,13 +9,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import ru.oxygens.a2_l5_lobysheva.database.NotesTable;
 
 /**
  * Created by oxygens on 16/03/2018.
@@ -22,26 +20,20 @@ import java.util.List;
 
 public class ListViewAdapter extends BaseAdapter {
 
-    private final int SAMPLES_COUNT = 1;
-    private final String SAMPLE_TITLE = "SAMPLE";
-    private final String SAMPLE_TEXT = "Your text could be here :)";
-    private final String internalFileName = "internal_file.lect";
+    private final String TITLE_DEFAULT = "[no title]";
+    private final String TEXT_DEFAULT = "";
 
-    private List<Note> elements = new ArrayList<>();
+    private List<Integer> elements = new ArrayList<>();
     private LayoutInflater layoutInflater;
-    private String path;
 
-    ListViewAdapter(Context context) {
+    private SQLiteDatabase database;
+
+    ListViewAdapter(Context context, SQLiteDatabase database) {
+        this.database = database;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        path = context.getFilesDir() + "/" + internalFileName;
-        readFromFile(path);
-    }
-
-    private void addSamples(int num) {
-        for (int i = 0; i < num; i++) {
-            elements.add(new Note(SAMPLE_TITLE + (i + 1), SAMPLE_TEXT));
+        if (NotesTable.getAllNotes(database) != null) {
+            elements = NotesTable.getAllNotes(database);
         }
-        saveToFile(path);
     }
 
     @Override
@@ -60,50 +52,63 @@ public class ListViewAdapter extends BaseAdapter {
         return position;
     }
 
-    void addElement(String title, String text) {
-        elements.add(new Note(title, text));
-        notifyDataSetChanged();
-        saveToFile(path);
+
+    String getItemTitle(int position) {
+        int note_id = elements.get(position);
+        return NotesTable.getNoteTitle(note_id, database).get(0);
     }
 
-    Note getItemInfo(int position) {
-        return elements.get(position);
+
+    String getItemText(int position) {
+        int note_id = elements.get(position);
+        return NotesTable.getNoteText(note_id, database).get(0);
+    }
+
+    void addElement(String title, String text) {
+        int id = elements.size()+1;
+        elements.add(id);
+        if (title.isEmpty()){
+            title = TITLE_DEFAULT;
+        }
+        NotesTable.addNote(id, title, text, database);
+        notifyDataSetChanged();
     }
 
     void updateElement(int position, String title, String text) {
         if (elements.size() > 0) {
-            elements.get(position).setNoteTitle(title);
-            elements.get(position).setNoteBody(text);
+            int note_id = elements.get(position);
+            if (title.isEmpty()){
+                title = TITLE_DEFAULT;
+            }
+            NotesTable.editNote(note_id, title, text, database);
             notifyDataSetChanged();
-            saveToFile(path);
         }
     }
 
     void deleteElement(int position) {
         if (elements.size() > 0) {
+            int note_id = elements.get(position);
+            NotesTable.deleteNote(note_id, database);
             elements.remove(position);
             notifyDataSetChanged();
-            saveToFile(path);
         }
     }
 
     void deleteLastElement() {
         if (elements.size() > 0) {
-            elements.remove(elements.size() - 1);
-            notifyDataSetChanged();
-            saveToFile(path);
+            int position = elements.size()-1;
+            deleteElement(position);
         }
     }
 
     void deleteAll() {
+        NotesTable.deleteAll(database);
         elements.clear();
         notifyDataSetChanged();
-        saveToFile(path);
     }
 
     @Override
     public View getView(final int position, View view, ViewGroup parent) {
-        readFromFile(path);
         final ListViewHolder holder;
         if (view == null) {
             view = layoutInflater.inflate(R.layout.list_view_item, parent, false);
@@ -123,7 +128,7 @@ public class ListViewAdapter extends BaseAdapter {
             holder = (ListViewHolder) view.getTag();
         }
 
-        String text = elements.get(position).getNoteHeader();
+        String text = getItemTitle(position);
         holder.textView.setText(text);
 
         return view;
@@ -134,44 +139,4 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
 
-    private void saveToFile(String fileName) {
-        File file;
-        try {
-            file = new File(fileName);
-
-            FileOutputStream fileOutputStream;
-            ObjectOutputStream objectOutputStream;
-
-            if(!file.exists()) {
-                file.createNewFile();
-            }
-
-            fileOutputStream = new FileOutputStream(file, false);
-            objectOutputStream = new ObjectOutputStream(fileOutputStream);
-
-            objectOutputStream.writeObject(elements);
-            objectOutputStream.flush();
-            objectOutputStream.close();
-
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
-    }
-
-    private void readFromFile(String fileName) {
-        FileInputStream fileInputStream;
-        ObjectInputStream objectInputStream;
-
-        try {
-            fileInputStream = new FileInputStream(fileName);
-            objectInputStream = new ObjectInputStream(fileInputStream);
-
-            elements = (List<Note>)objectInputStream.readObject();
-
-            objectInputStream.close();
-
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
-    }
 }

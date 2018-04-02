@@ -3,6 +3,7 @@ package ru.oxygens.a2_l5_lobysheva;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -32,6 +33,8 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.util.Locale;
+
+import ru.oxygens.a2_l5_lobysheva.database.DatabaseHelper;
 
 /**
  * Created by oxygens on 16/03/2018.
@@ -63,6 +66,8 @@ public class MainActivity extends AppCompatActivity
     private LocationManager mLocManager = null;
     private LocationListener mLocListener = null;
     Location location = null;
+
+    SQLiteDatabase database;
 
     public ActionMode.Callback modeCallBack = new ActionMode.Callback() {
 
@@ -103,6 +108,7 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = initToolbar();
+        initDB();
         initListView();
         initDrawer(toolbar);
         initNavigationView();
@@ -130,10 +136,10 @@ public class MainActivity extends AppCompatActivity
 
     private void initListView() {
         listView = findViewById(R.id.listView);
-        adapter = new ListViewAdapter(getApplicationContext());
+        adapter = new ListViewAdapter(getApplicationContext(), database);
         listView.setAdapter(adapter);
+        listView.setEmptyView(findViewById(R.id.no_result));
         listView.setOnCreateContextMenuListener(this);
-        updateEmptyListMessage();
     }
 
     private void initNavigationView() {
@@ -147,6 +153,10 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+    }
+
+    private void initDB() {
+        database = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
     }
 
     @Override
@@ -194,35 +204,33 @@ public class MainActivity extends AppCompatActivity
         switch (i) {
             case R.id.action_create: {
                 openCreateForm();
-                break;
+                return true;
             }
             case R.id.action_update: {
                 openForm(NoteActivity.mode_update);
-                break;
+                return true;
             }
             case R.id.action_view: {
                 openForm(NoteActivity.mode_view);
-                break;
+                return true;
             }
             case R.id.action_delete: {
                 adapter.deleteElement(selected_position);
-                break;
+                return true;
             }
             case R.id.action_delete_last: {
                 adapter.deleteLastElement();
                 selected_position = -1;
-                break;
+                return true;
             }
             case R.id.action_delete_all: {
                 adapter.deleteAll();
-                break;
+                return true;
             }
             default: {
                 return false;
             }
         }
-        updateEmptyListMessage();
-        return true;
     }
 
     private void openCreateForm() {
@@ -235,8 +243,8 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(this, NoteActivity.class);
         intent.putExtra(KEY_POSITION, selected_position);
         if (selected_position > -1) {
-            intent.putExtra(KEY_TITLE, adapter.getItemInfo(selected_position).getNoteHeader());
-            intent.putExtra(KEY_BODY, adapter.getItemInfo(selected_position).getNoteBody());
+            intent.putExtra(KEY_TITLE, adapter.getItemTitle(selected_position));
+            intent.putExtra(KEY_BODY, adapter.getItemText(selected_position));
             intent.putExtra(KEY_MODE, mode);
         }
         startActivityForResult(intent, code);
@@ -258,7 +266,6 @@ public class MainActivity extends AppCompatActivity
                 adapter.addElement(savedTitle, savedBody);
             }
         }
-        updateEmptyListMessage();
     }
 
 
@@ -446,11 +453,4 @@ public class MainActivity extends AppCompatActivity
         public void onProviderDisabled(String provider) {  }
     }
 
-    private void updateEmptyListMessage(){
-        if (adapter.getCount() == 0){
-            findViewById(R.id.no_result).setVisibility(View.VISIBLE);
-        } else {
-            findViewById(R.id.no_result).setVisibility(View.GONE);
-        }
-    }
 }

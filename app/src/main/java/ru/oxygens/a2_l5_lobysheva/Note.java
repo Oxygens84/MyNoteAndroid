@@ -8,15 +8,18 @@ import java.io.Serializable;
 
 class Note implements Serializable {
 
+    private int noteId;
     private String noteTitle;
     private String noteBody;
 
-    private final String TITLE_DEFAULT = "[no title]";
-    private final String TEXT_DEFAULT = "";
-
-    Note(String title, String text){
+    Note(int i, String title, String text){
+        setNoteId(i);
         setNoteTitle(title);
         setNoteBody(text);
+    }
+
+    int getNoteId(){
+        return noteId;
     }
 
     String getNoteHeader(){
@@ -27,19 +30,15 @@ class Note implements Serializable {
         return noteBody;
     }
 
+    void setNoteId(int i){
+        noteId = i;
+    }
+
     void setNoteTitle(String title){
-        if (title == null || "".equals(title)){
-            noteTitle = TITLE_DEFAULT;
-        } else {
-            noteTitle = title;
-        }
+        noteTitle = title;
     }
 
     void setNoteBody(String text){
-        if (text == null){
-            noteBody = TEXT_DEFAULT;
-        } else {
-            noteBody = text;
-        }
+        noteBody = text;
     }
 }
