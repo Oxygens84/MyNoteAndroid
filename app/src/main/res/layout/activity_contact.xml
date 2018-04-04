@@ -28,11 +28,13 @@
         <Button
             style="@style/ButtonStyle"
             android:id="@+id/button_map"
+            android:layout_weight="1"
             android:text="@string/button_map"/>
 
         <Button
             style="@style/ButtonStyle"
             android:id="@+id/button_ok"
+            android:layout_weight="1"
             android:text="@string/button_ok"/>
 
     </LinearLayout>

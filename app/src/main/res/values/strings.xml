@@ -18,6 +18,7 @@
 
     <string name="hint_title">Title</string>
     <string name="hint_body">Text</string>
+    <string name="hint_body_message">Inter your text</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -44,5 +45,6 @@
 
     <string name="place_not_found">Place not found</string>
     <string name="no_result">No notes available</string>
+    <string name="no_weather">No weather data available</string>
 
 </resources>

@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            getSupportActionBar().hide();
             mode.getMenuInflater().inflate(R.menu.context_menu, menu);
             return true;
         }
@@ -100,7 +99,6 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onDestroyActionMode(ActionMode mode) {
             mode.finish();
-            getSupportActionBar().show();
         }
     };
 
@@ -276,7 +274,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_slideshow) {
             showToast(bug_text);
@@ -348,6 +346,9 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
             }.start();
+        } else {
+            cityTextView.setText(bug_text);
+            detailsTextView.setText(R.string.no_weather);
         }
     }
 
