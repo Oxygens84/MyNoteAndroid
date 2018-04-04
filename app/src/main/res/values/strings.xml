@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NoteApp Lesson 5</string>
+    <string name="app_name">NoteApp Lesson 6</string>
     <string name="note_form_name">Note</string>
 
     <string name="google_map_key">AIzaSyDulopmd_oeSQLVgkhR8ThhalVxuB4AG9c</string>
@@ -14,6 +14,7 @@
     <string name="user_email">user@gmail.ru</string>
 
     <string name="options_title">Options</string>
+    <string name="actions_title">Select action:</string>
 
     <string name="hint_title">Title</string>
     <string name="hint_body">Text</string>
@@ -42,6 +43,6 @@
     <string name="button_map">Go to map</string>
 
     <string name="place_not_found">Place not found</string>
-    <string name="no_result">You don\'t have notes</string>
+    <string name="no_result">No notes available</string>
 
 </resources>

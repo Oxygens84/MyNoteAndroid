@@ -1,4 +1,4 @@
-package ru.oxygens.a2_l5_lobysheva;
+package ru.oxygens.a2_l6_lobysheva.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import ru.oxygens.a2_l6_lobysheva.R;
 
 /**
  * Created by oxygens on 17/03/2018.

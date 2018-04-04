@@ -1,4 +1,4 @@
-package ru.oxygens.a2_l5_lobysheva.database;
+package ru.oxygens.a2_l6_lobysheva.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "notes.db";
+    private static final String DATABASE_NAME = "notesapp.db";
     private static final int DATABASE_VERSION = 1;
 
     public DatabaseHelper(Context context) {
@@ -26,5 +26,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         NotesTable.onUpgrade(sqLiteDatabase);
         onCreate(sqLiteDatabase);
     }
+
 }
 

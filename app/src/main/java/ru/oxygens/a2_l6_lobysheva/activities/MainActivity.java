@@ -1,4 +1,4 @@
-package ru.oxygens.a2_l5_lobysheva;
+package ru.oxygens.a2_l6_lobysheva.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
@@ -25,8 +27,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +34,10 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
-import ru.oxygens.a2_l5_lobysheva.database.DatabaseHelper;
+import ru.oxygens.a2_l6_lobysheva.RecyclerViewAdapter;
+import ru.oxygens.a2_l6_lobysheva.R;
+import ru.oxygens.a2_l6_lobysheva.WeatherDataLoader;
+import ru.oxygens.a2_l6_lobysheva.database.DatabaseHelper;
 
 /**
  * Created by oxygens on 16/03/2018.
@@ -51,8 +54,10 @@ public class MainActivity extends AppCompatActivity
     String bug_text = "";
     String email_subject = "";
 
-    ListViewAdapter adapter;
-    ListView listView;
+    private RecyclerView recyclerView;
+    private RecyclerViewAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private TextView noResultView;
 
     int code = 1;
     int selected_position = -1;
@@ -112,16 +117,7 @@ public class MainActivity extends AppCompatActivity
         initListView();
         initDrawer(toolbar);
         initNavigationView();
-        registerForContextMenu(listView);
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            public boolean onItemLongClick(AdapterView parent, View view, int position, long id) {
-                selected_position = position;
-                startActionMode(modeCallBack);
-                view.setSelected(true);
-                return true;
-            }
-        });
+        registerForContextMenu(recyclerView);
 
         initWeatherView();
         getUserLocation();
@@ -135,11 +131,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initListView() {
-        listView = findViewById(R.id.listView);
-        adapter = new ListViewAdapter(getApplicationContext(), database);
-        listView.setAdapter(adapter);
-        listView.setEmptyView(findViewById(R.id.no_result));
-        listView.setOnCreateContextMenuListener(this);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerListView);
+        noResultView = (TextView) findViewById(R.id.no_result);
+
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new RecyclerViewAdapter(database);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setOnCreateContextMenuListener(this);
+
+        setEmptyViewMessage();
     }
 
     private void initNavigationView() {
@@ -184,14 +186,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
+        selected_position = adapter.getPosition();
         getMenuInflater().inflate(R.menu.context_menu, menu);
-        getSupportActionBar().hide();
     }
 
     @Override
     public void onContextMenuClosed(Menu menu) {
         super.onContextMenuClosed(menu);
-        getSupportActionBar().show();
+        selected_position = adapter.getPosition();
     }
 
     @Override
@@ -204,33 +206,35 @@ public class MainActivity extends AppCompatActivity
         switch (i) {
             case R.id.action_create: {
                 openCreateForm();
-                return true;
+                break;
             }
             case R.id.action_update: {
                 openForm(NoteActivity.mode_update);
-                return true;
+                break;
             }
             case R.id.action_view: {
                 openForm(NoteActivity.mode_view);
-                return true;
+                break;
             }
             case R.id.action_delete: {
-                adapter.deleteElement(selected_position);
-                return true;
+                adapter.deleteElement();
+                break;
             }
             case R.id.action_delete_last: {
                 adapter.deleteLastElement();
                 selected_position = -1;
-                return true;
+                break;
             }
             case R.id.action_delete_all: {
                 adapter.deleteAll();
-                return true;
+                break;
             }
             default: {
                 return false;
             }
         }
+        setEmptyViewMessage();
+        return true;
     }
 
     private void openCreateForm() {
@@ -261,11 +265,12 @@ public class MainActivity extends AppCompatActivity
             String savedBody = answerIntent.getStringExtra(KEY_BODY);
             int position = answerIntent.getIntExtra(KEY_POSITION, -1);
             if (position > -1) {
-                adapter.updateElement(position, savedTitle, savedBody);
+                adapter.updateElement(savedTitle, savedBody);
             } else {
                 adapter.addElement(savedTitle, savedBody);
             }
         }
+        setEmptyViewMessage();
     }
 
 
@@ -451,6 +456,15 @@ public class MainActivity extends AppCompatActivity
         public void onProviderEnabled(String provider) {  }
         @Override
         public void onProviderDisabled(String provider) {  }
+    }
+
+    private void setEmptyViewMessage(){
+        if (adapter.getItemCount() == 0) {
+            noResultView.setVisibility(View.VISIBLE);
+        }
+        else {
+            noResultView.setVisibility(View.GONE);
+        }
     }
 
 }

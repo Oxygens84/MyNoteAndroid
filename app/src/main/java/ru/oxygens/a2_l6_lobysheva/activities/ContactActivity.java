@@ -1,4 +1,4 @@
-package ru.oxygens.a2_l5_lobysheva;
+package ru.oxygens.a2_l6_lobysheva.activities;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import ru.oxygens.a2_l6_lobysheva.R;
 
 /**
  * Created by oxygens on 22/03/2018.

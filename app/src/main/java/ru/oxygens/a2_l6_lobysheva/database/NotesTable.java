@@ -1,4 +1,4 @@
-package ru.oxygens.a2_l5_lobysheva.database;
+package ru.oxygens.a2_l6_lobysheva.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class NotesTable {
 
-    private final static String TABLE_NAME = "Notes";
+    private final static String TABLE_NAME = "notes";
     private final static String COLUMN_NOTE_ID = "_id";
     private final static String COLUMN_NOTE_TITLE = "n_title";
     private final static String COLUMN_NOTE_TEXT = "n_text";
@@ -29,13 +29,15 @@ public class NotesTable {
         database.execSQL(
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         COLUMN_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        COLUMN_NOTE_TITLE + " TEXT DEFAULT '[no_title]');"
+                        COLUMN_NOTE_TITLE + " TEXT DEFAULT '[no_title]'," +
+                        COLUMN_NOTE_TEXT + " TEXT);"
         );
     }
 
     static void onUpgrade(SQLiteDatabase database) {
-        database.execSQL("ALTER TABLE " + TABLE_NAME +
-                " ADD COLUMN " + COLUMN_NOTE_TEXT + " TEXT");
+        //database.execSQL("ALTER TABLE " + TABLE_NAME +
+        //        " ADD COLUMN " + COLUMN_NOTE_TEXT + " TEXT;");
+        database.execSQL("DROP TABLE " + TABLE_NAME + ";");
     }
 
     public static void addNote(int id, String title, String text, SQLiteDatabase database) {

@@ -1,4 +1,4 @@
-package ru.oxygens.a2_l5_lobysheva;
+package ru.oxygens.a2_l6_lobysheva;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -14,7 +14,7 @@ import java.net.URL;
  * Created by oxygens on 24/03/2018.
  */
 
-class WeatherDataLoader {
+public class WeatherDataLoader {
 
     private static final String WEATHER_API_KEY = "556693c733016a677267eed8104d1de0";
     private static final String WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f";
@@ -25,7 +25,7 @@ class WeatherDataLoader {
     private static final int CAPACITY = 1024;
 
     @Nullable
-    static JSONObject getJSONData(Context context, double lat, double lon) {
+    public static JSONObject getJSONData(Context context, double lat, double lon) {
 
         try {
             URL url = new URL(String.format(WEATHER_API_URL, lat, lon));
