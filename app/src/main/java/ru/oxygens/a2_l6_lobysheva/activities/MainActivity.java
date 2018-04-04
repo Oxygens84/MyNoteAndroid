@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -115,8 +117,8 @@ public class MainActivity extends AppCompatActivity
         initListView();
         initDrawer(toolbar);
         initNavigationView();
+        initFB();
         registerForContextMenu(recyclerView);
-
         initWeatherView();
         getUserLocation();
         updateWeatherData(location);
@@ -157,6 +159,16 @@ public class MainActivity extends AppCompatActivity
 
     private void initDB() {
         database = new DatabaseHelper(getApplicationContext()).getWritableDatabase();
+    }
+
+    private void initFB(){
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_create);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onMenuClick(R.id.action_create);
+            }
+        });
     }
 
     @Override
@@ -216,11 +228,6 @@ public class MainActivity extends AppCompatActivity
             }
             case R.id.action_delete: {
                 adapter.deleteElement();
-                break;
-            }
-            case R.id.action_delete_last: {
-                adapter.deleteLastElement();
-                selected_position = -1;
                 break;
             }
             case R.id.action_delete_all: {
