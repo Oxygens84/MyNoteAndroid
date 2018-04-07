@@ -1,6 +1,7 @@
 package ru.oxygens.a2_l6_lobysheva.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,7 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity
     public static final String KEY_POSITION = "POSITION";
     public static final String KEY_MODE = "MODE";
 
-    String bug_text = "";
-    String email_subject = "";
+    public static String bug_text = "";
+    public static String email_subject = "";
 
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
@@ -75,34 +75,6 @@ public class MainActivity extends AppCompatActivity
     Location location = null;
 
     SQLiteDatabase database;
-
-    public ActionMode.Callback modeCallBack = new ActionMode.Callback() {
-
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mode.getMenuInflater().inflate(R.menu.context_menu, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
-
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            if (selected_position > -1) {
-                onMenuClick(item.getItemId());
-            }
-            mode.finish();
-            return true;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            mode.finish();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,14 +97,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     private Toolbar initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         return toolbar;
     }
 
     private void initListView() {
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerListView);
-        noResultView = (TextView) findViewById(R.id.no_result);
+        recyclerView = findViewById(R.id.recyclerListView);
+        noResultView = findViewById(R.id.no_result);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -144,13 +116,13 @@ public class MainActivity extends AppCompatActivity
         setEmptyViewMessage();
     }
 
-    private void initNavigationView() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+    public void initNavigationView() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     private void initDrawer(Toolbar toolbar) {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -162,7 +134,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initFB(){
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_create);
+        FloatingActionButton fab = findViewById(R.id.fab_create);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,7 +145,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -296,13 +268,13 @@ public class MainActivity extends AppCompatActivity
             sendFeedback();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     private void sendFeedback() {
-        TextView email = (TextView) findViewById(R.id.contact_email);
+        TextView email = findViewById(R.id.contact_email);
 
         String uriText =
                 "mailto:" + email.getText().toString() +
@@ -316,7 +288,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void showToast(String text) {
+    private void showToast(String text) {
         Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
@@ -409,15 +381,10 @@ public class MainActivity extends AppCompatActivity
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         boolean permissionsGranted = false;
         if (requestCode == 100) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (grantResults.length > 1 && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    permissionsGranted = true;
-                } else {
-                    permissionsGranted = false;
-                }
-            } else {
-                permissionsGranted = false;
-            }
+            permissionsGranted = grantResults.length > 0 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults.length > 1
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED;
         }
         if (permissionsGranted) {
             recreate();

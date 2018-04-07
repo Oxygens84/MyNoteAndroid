@@ -12,7 +12,7 @@
         card_view:cardElevation="@dimen/size_5"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/size_5"
         android:layout_marginBottom="@dimen/size_5"
         android:layout_gravity="center">
 

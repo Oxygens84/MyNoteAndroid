@@ -1,11 +1,9 @@
 package ru.oxygens.a2_l6_lobysheva;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -124,7 +122,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         ViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.element_header);
+            textView = itemView.findViewById(R.id.element_header);
             itemView.setOnCreateContextMenuListener(this);
         }
 

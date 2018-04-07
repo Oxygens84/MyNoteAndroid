@@ -35,8 +35,6 @@ public class NotesTable {
     }
 
     static void onUpgrade(SQLiteDatabase database) {
-        //database.execSQL("ALTER TABLE " + TABLE_NAME +
-        //        " ADD COLUMN " + COLUMN_NOTE_TEXT + " TEXT;");
         database.execSQL("DROP TABLE " + TABLE_NAME + ";");
     }
 
@@ -78,7 +76,7 @@ public class NotesTable {
         return getResultFromCursor(cursor, COLUMN_NOTE_TEXT);
     }
 
-    public static List<Integer> getResultFromCursor(Cursor cursor) {
+    private static List<Integer> getResultFromCursor(Cursor cursor) {
         List<Integer> result = null;
 
         if(cursor != null && cursor.moveToFirst()) {
@@ -94,12 +92,13 @@ public class NotesTable {
         }
 
         try {
+            assert cursor != null;
             cursor.close();
         } catch (Exception ignored) {}
         return result == null ? new ArrayList<Integer>(0) : result;
     }
 
-    public static List<String> getResultFromCursor(Cursor cursor, String column) {
+    private static List<String> getResultFromCursor(Cursor cursor, String column) {
         List<String> result = null;
 
         if(cursor != null && cursor.moveToFirst()) {
@@ -115,6 +114,7 @@ public class NotesTable {
         }
 
         try {
+            assert cursor != null;
             cursor.close();
         } catch (Exception ignored) {}
         return result == null ? new ArrayList<String>(0) : result;

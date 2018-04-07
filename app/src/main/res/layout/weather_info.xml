@@ -8,8 +8,6 @@
         android:id="@+id/city_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 
@@ -18,8 +16,6 @@
         android:id="@+id/details_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 
